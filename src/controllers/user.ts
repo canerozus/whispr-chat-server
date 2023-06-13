@@ -7,25 +7,20 @@ export const getUsers = async (req: Request, res: Response) => {
     const users = await User.find();
     res.json(users);
   } catch (error) {
-    res.status(500).json({ message: 'Kullanıcılar getirilirken bir hata oluştu.' });
+    res.status(500).json({ message: 'Something went wrong!' });
   }
 };
 
-// Yeni bir kullanıcı oluşturma
+
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, createdAt } = req.body;
 
-    const newUser = new User({
-      username,
-      email,
-      password,
-    });
+     await User.create({ username, email, password, createdAt });
 
-    await newUser.save();
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(500).json({ message: 'Kullanıcı oluşturulurken bir hata oluştu.' });
+    res.status(201).json("User has been created!");
+  } catch (error: any) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong!', error: error.message });
   }
 };
