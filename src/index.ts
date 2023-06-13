@@ -15,6 +15,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/users", userRoutes);
 
 app.listen(port, async () => {
+  console.log(`server listening on http://localhost:${port}`);
   mongoose
     .connect(process.env.MONGODB_URL)
     .then((result) => {
