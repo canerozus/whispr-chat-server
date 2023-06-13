@@ -2,17 +2,21 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
 import mongoose from "mongoose";
+import cors from "cors"
 dotenv.config();
 
 const app: Express = express();
-const port = 8000;
+const port =process.env.PORT || 8000;
+app.use(express.json());
+app.use(cors());
+
+//Routes
+app.use("/api/users", userRoutes);
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
-
-//Routes
-app.use("/api/users", userRoutes);
 
 app.listen(port, async () => {
   console.log(`server listening on http://localhost:${port}`);
