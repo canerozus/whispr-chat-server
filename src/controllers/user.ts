@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../models/user';
-
+import jwt from "jsonwebtoken"
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -12,7 +12,7 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 
-export const createUser = async (req: Request, res: Response) => {
+export const Register = async (req: Request, res: Response) => {
   try {
     const { username, email, password, createdAt } = req.body;
 
