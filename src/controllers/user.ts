@@ -58,3 +58,13 @@ export const Login = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
+
+export const Logout = async (req: Request, res: Response) => {
+  res
+    .clearCookie("token", {
+      secure: true,
+      sameSite: "none",
+    })
+    .status(200)
+    .json({ message: "User logged out" });
+};
