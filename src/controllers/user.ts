@@ -35,7 +35,23 @@ export const Login = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
-    const passwordCheck = "test";
+    const passwordCheck = bcrypt.compareSync(password, user.password);
+
+    if (passwordCheck) {
+      jwt.sign(
+        { username, id: user._id },
+        process.env.JWT_SECRET,
+        (err: any, token: any) => {
+          res
+            .cookie("token", token, {
+              httpOnly: true,
+              secure: true,
+              sameSite: "none",
+            })
+            .json({ message: "logging in", id: user._id, username });
+        }
+      );
+    }
   } catch (err) {
     console.log(err);
   }
