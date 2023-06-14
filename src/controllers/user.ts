@@ -51,6 +51,8 @@ export const Login = async (req: Request, res: Response) => {
             .json({ message: "logging in", id: user._id, username });
         }
       );
+    } else {
+      return res.status(403).json({ message: "Invalid credentials" });
     }
   } catch (err) {
     console.log(err);
