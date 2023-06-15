@@ -29,9 +29,9 @@ export const Register = async (req: Request, res: Response) => {
 };
 
 export const Login = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
@@ -39,7 +39,7 @@ export const Login = async (req: Request, res: Response) => {
 
     if (passwordCheck) {
       jwt.sign(
-        { username, id: user._id },
+        { email, id: user._id },
         process.env.JWT_SECRET,
         (err: any, token: any) => {
           res
@@ -48,7 +48,7 @@ export const Login = async (req: Request, res: Response) => {
               secure: true,
               sameSite: "none",
             })
-            .json({ message: "logging in", id: user._id, username });
+            .json({ message: "logging in", id: user._id, email });
         }
       );
     } else {
