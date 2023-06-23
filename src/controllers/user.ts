@@ -29,8 +29,8 @@ export const Register = async (req: Request, res: Response) => {
 };
 
 export const Login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(401).json({ message: "User not found" });
@@ -48,7 +48,7 @@ export const Login = async (req: Request, res: Response) => {
               secure: true,
               sameSite: "none",
             })
-            .json({ message: "logging in", id: user._id, email });
+            .json({ message: "logging in", id: user._id, email});
         }
       );
     } else {
