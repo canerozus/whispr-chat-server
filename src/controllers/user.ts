@@ -48,7 +48,7 @@ export const Login = async (req: Request, res: Response) => {
               secure: true,
               sameSite: "none",
             })
-            .json({ message: "logging in", id: user._id, email, token});
+            .json({ message: "logging in", token});
         }
       );
     } else {
