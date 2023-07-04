@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
+import chatRoutes from "./routes/chatRoutes";
 import mongoose from "mongoose";
 import cors from "cors"
 dotenv.config();
@@ -12,6 +13,7 @@ app.use(cors());
 
 //Routes
 app.use("/api/users", userRoutes);
+app.use("/api/conversations", chatRoutes);
 
 
 app.get("/", (req: Request, res: Response) => {
